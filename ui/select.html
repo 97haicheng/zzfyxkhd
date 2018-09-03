@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+	<title>选择数据弹层</title>
+	<style>
+		html,body{
+			margin:0;
+			padding: 0;
+			background-color:rgba(0,0,0,.7);
+		}
+		.container{
+			width: 600px;
+			height: 800px;
+			background:	#fff;
+			z-index:3;
+			margin:240px auto;
+		}
+		.head{
+			text-align: center;
+			width: 560px;
+			background: #932125;
+			padding:20px;
+		}
+		._title{
+			font-size: 26px;
+			color:#fff;
+		}
+		.row{
+			width:100%;
+			padding-top: 30px;
+		}
+		.Sel_1{
+			padding:0 50px;
+		}
+		._sel1,._sel3{
+			font-size: 24px;
+			line-height: 50px;
+			font-weight: 500;
+			padding-right: 20px;
+		}
+		#sel1,#sel2{
+			height: 50px;
+			width:370px;
+			vertical-align: bottom;
+			border-radius: 3px;
+			font-size: 20px;
+		}
+		.Sel_2{
+			padding-left: 190px;
+			color:	#FF0000;
+		}
+		.Sel_3{
+			padding:20px 50px 0 ;
+		}
+		.rowProgress{
+			padding-top:150px;
+			display: none;
+			text-align: center;
+		}
+		.loadImg{
+			display: block;
+			margin:0 auto;
+		}
+		.msg{
+			display: block;
+			height: 30px;
+		}
+		.btn{
+			width:80%;
+			height: 40px;
+			line-height: 40px;
+			background: #0275d8;
+			border:none;
+			border-radius: 3px;
+			color:#fff;
+			margin:0 10%;
+			font-size: 20px;
+		}
+		.btn:hover{
+			background: #025aa5;
+			color:#fff;
+		}
+		.progress{
+			width: 90%;
+			display: block;
+		}
+		.proSpan{
+			display: block;
+			font-size: 14px;
+		    color:	#696969;
+		    padding-top: 10px;
+		}
+	</style>
+</head>
+<body>
+	<div class="container">
+		<!-- head -->
+		<div class="head">
+			<span class="_title">请选择识别类型和应用场景</span>
+		</div>
+		<!-- slect -->
+		<div class="row">
+			<div class="Sel_1">
+				<label for="sel1" class="_sel1">识别类型:</label>
+				<select id="sel1">
+				    <option value="0">——请选择识别类型——</option>
+				    <option value="1">学生</option>
+				    <option value="2">老师</option>
+				</select>
+			</div>
+			<div class=" Sel_2"><span class="msg"></span></div>
+			<div class=" Sel_3">
+				<label for="sel2" class="_sel3">应用场景:</label>
+				<select id="sel2">
+					 <option value="0">——请选择应用场景——</option>
+				</select>
+			</div>
+		</div>
+		<!-- btn -->
+		<div class="row">
+			<button type="button" class="btn">确定</button>
+		</div>
+		<!-- process -->
+		<div class="rowProgress">
+			<img class="loadImg" src="img/qian/images/load.gif">
+			<span class="proSpan">正在初始化，请稍后...</span>
+		</div>
+	</div>
+	
+	<script src="js/jquery-3.2.1.js"></script>
+	<script>
+		var weburl=parent.weburl;
+		console.log(weburl);
+		var $sel1=$("#sel1");
+		var $sel2=$("#sel2");
+		var $btn=$(".btn");
+		var $rowProgress=$(".rowProgress");
+		var $proSpan=$(".proSpan");
+		$sel1.on("change",function(){
+			var fpType=$(this).val();
+			$.ajax({
+				url:weburl+"cupl-face/api/faceplace",
+				type:"get",
+				data:{
+					fpType:fpType
+				},
+				success:function(data){
+					if(data.code=="0"){
+						var data_1=data.data;
+						var str="";
+						$.each(data_1,function(index,item){
+							str+="<option value='"+item.fpId+"'>"+item.fpName+"</option>"
+						});
+						$sel2.append(str);
+					}
+				},
+				error:function(){
+				}
+			})
+		});
+		// 提示信息
+		$sel2.on("focus",function(){
+			if($sel1.val()=="0"){
+				$(".msg").html("请先选择识别类型");
+			}
+		});
+		$sel1.on("focus",function(){
+			$(".msg").html("");
+		});
+		// 提交
+		$btn.click(function(){
+			var dataType=$sel1.val();
+			var facePlaceId=$sel2.val();
+			sessionStorage.setItem("_Type",dataType);
+			sessionStorage.setItem("placeId",facePlaceId);
+			parent.facePlaceId=facePlaceId;
+			if(dataType!=0 && facePlaceId!=0){
+				$rowProgress.show();
+				$.ajax({
+					url:weburl+"cupl-face/client/get/data",
+					type:"get",
+					data:{
+						dataType:dataType,
+						facePlaceId:facePlaceId
+					},
+					dataType:"json",
+					success:function(data){
+						if(data.status!="503"){
+							if(data.code=="10200"){
+								var msg=data.msg;
+								// $.each(msg,function(index,item){
+								// 	$.ajax({
+								// 		url:weburl+"/cupl-face/client/getImgBase64",
+								// 		type:"get",
+								// 		async:false,
+								// 		data:{
+								// 			photoId:item.stuPhotoId
+								// 		},
+								// 		success:function(data){
+								// 			if(data.code=="10200"){
+								// 				var string=data.msg.split(",")[1];
+								// 				App.Base64ToFile(string, g_apppath + "\serverphoto\\" + item.stuIdNumber + ".jpg");
+								// 			}
+								// 		},
+								// 		error:function(){
+
+								// 		}
+								// 	})
+								// })
+
+
+
+								App.WriteTextFile(parent.g_apppath+"/data.txt",JSON.stringify(msg));
+								$rowProgress.hide();
+								// 隐藏select页面
+								parent.$("#_select").hide();
+								parent.check();
+							}else{
+								$proSpan.html(data.msg);
+							}
+						}else{
+							parent.$("#_select").attr("src","twoOne.html");
+						}
+					},
+					error:function(){
+						// 错误信息
+					}
+				})
+			}
+		});
+
+		
+	</script>
+</body>
+</html>

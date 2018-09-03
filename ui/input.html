@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+    <link rel="stylesheet" href="css/font.css"/>
+    <style>
+		html,body{
+			margin:0;
+			padding: 0;
+			background-color:rgba(0,0,0,.7);
+		}
+		.container{
+			width: 600px;
+			height: 800px;
+			background:	#fff;
+			z-index:3;
+			margin:240px auto;
+		}
+		.head{
+			text-align: center;
+			width: 560px;
+			background: #932125;
+			padding:20px;
+		}
+		.headSpan{
+			font-size: 26px;
+			color:#fff;
+		}
+		.ipt{
+			padding-top: 50px;
+		}
+		.ipt1{
+			width: 80%;
+			height: 50px;
+			line-height: 50px;
+			font-size: 24px;
+			margin: 0 10%;
+			text-indent: 1rem;
+		}
+		.btn{
+			padding-top: 50px;
+		}
+		.btn1,.btn2{
+			width: 80%;
+			height: 50px;
+			line-height: 50px;
+			background: #0275d8;
+			border: none;
+			border-radius: 3px;
+			margin:0 10%;
+			color:#fff;
+			font-size: 24px;
+		}
+		.btn1:hover{
+			background: #025aa5;
+		}
+		p{
+			width: 80%;
+			margin:0 10%;
+		}
+		.btn2{
+			background: #FFA500;
+		}
+		.btn2:hover{
+			background:	#FF8C00;
+		}
+		.jianpan{
+			width: 80%;
+			margin: 0 10%;
+			/*border:1px solid gray;*/
+			margin-top: 50px;
+		}
+		.jianpan span{
+			display: inline-block;
+			width: 140px;
+			height:40px;
+			margin:10px;
+			background: #8C8C8C;
+			text-align: center;
+			color:#fff;
+			font-weight: 500;
+			line-height: 40px;
+			box-shadow: 1px 1px gray;
+			cursor: pointer;
+			font-size: 24px;
+		}
+		.iconfont{
+			color:red;
+		}
+    </style>
+</head>
+<body>
+	<div class="container">
+		<div class="head">
+			<span class="headSpan">身份证输入</span>
+		</div>
+		<div class="ipt">
+			<input class="ipt1" type="text" value="" placeholder="请输入身份证号码后6位">
+			<p></p>
+		</div>
+		<div class="btn">
+			<button class="btn1">确定</button>
+		</div>
+		<div class="btn">
+			<button class="btn2">取消</button>
+		</div>
+		<div class="tips">
+			<span class="msg"></span>
+		</div>
+		<div class="jianpan">
+			<span class="s1">1</span><span class="s2">2</span><span class="s3">3</span><span class="s4">4</span><span class="s5">5</span><span class="s6">6</span><span class="s7">7</span><span class="s8">8</span><span class="s9">9</span><span class="s10">X</span><span class="s11">0</span><span class="s12"><i class="iconfont">&#xe7f1;</i></span>
+		</div>
+	</div>
+
+	<script src="js/jquery-3.2.1.js"></script>
+	<script>
+		var $btn=$(".btn1");
+		var $btn2=$(".btn2");
+		$btn.click(function(){
+			var $val=$(".ipt1");
+			if($val.val()=="" || $val.val().length !=6){
+				$("p").html("输入内容有误").css("color","red");
+			}else{
+				parent.$("#_select").hide();
+				parent.qiuNumber=$val.val();
+				parent.idePhoto="0";
+				parent.clearObj();
+				parent.f2f();
+			}
+		})
+		$btn2.click(function(){
+			parent.$("#_select").hide();
+			parent.toFirst();
+		})
+		// 键盘
+		// $(".jianpan span").click((index)=>{
+		// 	$(".ipt1").focus();
+		// 	var number=$(".jianpan span")[index].html();
+		// 	var zz=/[0-9]/;
+		// 	if(zz.test(number)){
+		// 		$(".ipt1").val($(".ipt1").val()+number);
+		// 	}else{
+		// 		$(".ipt1").val().splice(-1);
+		// 	}
+		// })
+$(".s1").click(function(){$(".ipt1").focus();var a=$(".ipt1").val();var b=$(".s1").text();$(".ipt1").val(a+b)});
+$(".s2").click(function(){$(".ipt1").focus();var a=$(".ipt1").val();var b=$(".s2").text();$(".ipt1").val(a+b)});
+$(".s3").click(function(){$(".ipt1").focus();var a=$(".ipt1").val();var b=$(".s3").text();$(".ipt1").val(a+b)});
+$(".s4").click(function(){$(".ipt1").focus();var a=$(".ipt1").val();var b=$(".s4").text();$(".ipt1").val(a+b)});
+$(".s5").click(function(){$(".ipt1").focus();var a=$(".ipt1").val();var b=$(".s5").text();$(".ipt1").val(a+b)});
+$(".s6").click(function(){$(".ipt1").focus();var a=$(".ipt1").val();var b=$(".s6").text();$(".ipt1").val(a+b)});
+$(".s7").click(function(){$(".ipt1").focus();var a=$(".ipt1").val();var b=$(".s7").text();$(".ipt1").val(a+b)});
+$(".s8").click(function(){$(".ipt1").focus();var a=$(".ipt1").val();var b=$(".s8").text();$(".ipt1").val(a+b)});
+$(".s9").click(function(){$(".ipt1").focus();var a=$(".ipt1").val();var b=$(".s9").text();$(".ipt1").val(a+b)});
+$(".s10").click(function(){$(".ipt1").focus();var a=$(".ipt1").val();var b=$(".s10").text();$(".ipt1").val(a+b)});
+$(".s11").click(function(){$(".ipt1").focus();var a=$(".ipt1").val();var b=$(".s11").text();$(".ipt1").val(a+b)});
+$(".s12").click(function(){$(".ipt1").focus();var a=$(".ipt1").val();var b=a.slice(0,a.length-1);$(".ipt1").val(b)});
+
+
+	</script>
+</body>
+</html>

@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+	<title>twoFive</title>
+	<link rel="stylesheet" href="css/jquery-ui.min.css"/>
+	<style>
+		html,body{
+			margin:0;
+			padding: 0;
+			background-color:rgba(0,0,0,.7);
+		}
+		.container{
+			width: 600px;
+			height: 800px;
+			background:	#fff;
+			z-index:3;
+			margin:240px auto;
+		}
+		/*#456ec3*/
+		.ui-corner-all span{
+		    background: #456ec3  !important;
+		}
+/*		.jindutiao{
+			background:#456ec3 url("img/qian/images/rep.png")  50% 50% repeat-x;
+		}*/
+		.head{
+			text-align: center;
+			width: 560px;
+			background: #932125;
+			padding:20px;
+		}
+		.headSpan{
+			font-size: 26px;
+			color:#fff;
+		}
+		.row{
+			margin-top:50px;
+		}
+		.faceSpan{
+			font-size: 20px;
+			padding-left: 20px;
+			color:#456ec3;
+			padding-right:5px;
+		}
+		.faceSpan1{
+			font-size: 12px;
+			color:#c0c0c0;
+			padding-right:10px;
+		}
+		.label1{
+			color:#808080;
+		}
+		#slider{
+			position: relative;
+		}
+		#slider:before{
+			content:"0";
+			position: absolute;
+			left:-30px;
+			top:-5px;
+			color:#808080;
+		}
+		#slider:after{
+			content:"1000";
+			position: absolute;
+			left:505px;
+			top:-5px;
+			color:#808080;
+		}
+		.qingxi{
+			font-size: 20px;
+			padding-left: 20px;
+			color:#456ec3;
+			padding-right:5px;
+		}
+		.qingxi1{
+			font-size: 12px;
+			color:#c0c0c0;
+			padding-right:10px;
+		}
+		.label2{
+				color:#808080;
+		}
+		#faceSlider:before{
+			content:"0";
+			position: absolute;
+			left:-30px;
+			top:-5px;
+			color:#808080;
+		}
+		#faceSlider:after{
+			content:"1000";
+			position: absolute;
+			left:505px;
+			top:-5px;
+			color:#808080;
+		}
+		.rowBtn{
+			padding-top: 80px;
+			padding-left: 13%;
+		}
+		.btnLeft{
+			margin-right: 20px;
+			width: 100px;
+		}
+		.btn{
+			width:200px;
+			border:none;
+			font-size: 24px;
+			color:#fff;
+
+		}
+		.btn-primary{
+			height: 50px;
+			line-height: 50px;
+			background: #0275d8;
+		}
+		.btn-primary:hover{
+			background: #025aa5;
+		}
+		.btn-secondary{
+			height: 50px;
+			line-height: 50px;
+			background: #DCDCDC;
+		}
+		.btn-secondary:hover{
+			background: #808080;
+		}
+	</style>
+</head>
+<body>
+	<div class="container">
+		<div class="row head">
+			<span class="headSpan">人脸识别阈值设定</span>
+		</div>
+		<!--  -->
+		<div class="row">
+			<div>
+				<span class="faceSpan">人脸识别精度设定</span><span class="faceSpan1">(数值越大越严格)</span><label for="#amount" class="label1">当前值：</label><input type="text" id="amount" style="border:0; color:#456ec3; font-weight:bold;">
+			</div>
+			<div id="slider" style="width:500px; margin:15px 15px 15px 30px;"></div>
+		</div>
+		<hr/>
+<!-- 		<div class="row">
+			<div>
+				<span class="qingxi">人脸抓拍清晰度</span><span class="qingxi1">(数值越大越清晰)</span><label for="#face" class="label2">当前值：</label><input type="text" id="face" style="border:0;color:#456ec3; font-weight:bold;">
+			</div>
+			<div id="faceSlider" style="width:500px; margin:15px 15px 15px 30px;"></div>
+		</div> -->
+		<div class="row rowBtn">
+			<button type="button" class="btn btn-secondary btnLeft">取消</button><button type="button" class="btn btn-primary btnRight">确定</button>
+		</div>
+	</div>
+	<script src="js/jquery-3.2.1.js"></script>
+  	<script src="js/jquery-ui.min.js"></script>
+  	<script>
+	  $(function() {
+	    $( "#slider" ).slider({
+	      value:400,
+	      min: 0,
+	      max: 1000,
+	      step: 100,
+	      slide: function( event, ui ) {
+	        $( "#amount" ).val(ui.value);
+	      }
+	    });
+	    $( "#amount" ).val($( "#slider" ).slider( "value" ) );
+	    // faceSlider
+	    $("#faceSlider").slider({
+	      value:400,
+	      min: 0,
+	      max: 1000,
+	      step: 100,
+	      slide: function( event, ui ) {
+	        $( "#face" ).val(ui.value );
+	      }
+	    });
+	    $( "#face" ).val($( "#faceSlider" ).slider( "value" ) );
+
+	    $(".btnLeft").click(function(){
+	    	parent.$("#_select").hide();
+	    });
+	    $(".btnRight").click(function(){
+	    	parent.jingdu=$( "#slider" ).slider( "value" );
+	    	parent.qingxidu=$( "#faceSlider" ).slider( "value" );
+	    	parent.$("#_select").hide();
+	    })
+	  });
+  </script>
+  	</script>
+</body>
+</html>

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+    <style>
+		html,body{
+			margin:0;
+			padding: 0;
+			background-color:rgba(0,0,0,.7);
+		}
+		.container{
+			width: 600px;
+			height: 800px;
+			background:	#fff;
+			z-index:3;
+			margin:240px auto;
+		}
+		.head{
+			text-align: center;
+			width: 560px;
+			background: #932125;
+			padding:20px;
+		}
+		.headSpan{
+			font-size: 26px;
+			color:#fff;
+		}
+		.ipt{
+			padding-top: 50px;
+		}
+		#ide{
+			width:80%;
+			height: 50px;
+			line-height: 50px;
+			font-size: 24px;
+			margin:0  10%;
+			text-indent: 2rem;
+		}
+		.btn{
+			padding-top: 50px;
+		}
+		.btn1{
+			width: 80%;
+			height: 50px;
+			line-height: 50px;
+			background: #0275d8;
+			border: none;
+			border-radius: 3px;
+			margin:0 10%;
+			color:#fff;
+			font-size: 24px;
+		}
+		.btn1:hover{
+			background: #025aa5;
+		}
+/*		p{
+			width: 80%;
+			margin:0 10%;
+		}*/
+    </style>
+</head>
+<body>
+	<div class="container">
+		<div class="head">
+			<span class="headSpan">请选择是否进行身份证有效期验证</span>
+		</div>
+		<div class="ipt">
+			<select name="ideCheck" id="ide">
+				<option value="1">是</option>
+				<option value="0">否</option>
+			</select>
+		</div>
+		<div class="btn">
+			<button class="btn1">确定</button>
+		</div>
+		<div class="tips">
+			<span class="msg"></span>
+		</div>
+	</div>
+
+	<script src="js/jquery-3.2.1.js"></script>
+	<script>
+		var $btn=$(".btn1");
+		$btn.click(function(){
+			var $val=$("#ide");
+			if($val.val()=="0"){
+				parent.ideCheck=0;
+			}else{
+				parent.ideCheck=1;
+			};
+			parent.$("#_select").hide();
+		})
+	</script>
+</body>
+</html>

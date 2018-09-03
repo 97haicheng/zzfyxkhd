@@ -1,0 +1,254 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+</HEAD>
+<BODY>
+
+
+<!--
+<iframe style="background: red;z-index: 9999;position: absolute;top: 0;width: 200px;height: 200px;" windowlessvideo="true" wmode="opaque"></iframe> 
+-->
+
+<EMBED TYPE="application/x-window-plugin" id="pluginId" LIGN=CENTER WIDTH=800 HEIGHT=500 name ="flipper"/>
+
+   <h1 id="testDiv1">testDiv1</h1>
+   <h1 id="testDiv2">testDiv2</h1>
+   <h1 id="testDiv3">testDiv3</h1>
+   <h1 id="testDiv4">testDiv4</h1>
+   <script type="text/javascript">
+      
+      
+      var showWorm1 = function(worm){
+        var temp = document.getElementById("testDiv1");
+        temp.innerHTML = worm;
+      }
+      var showWorm2 = function(worm){
+        var temp = document.getElementById("testDiv2");
+        temp.innerHTML = worm;
+      }
+      var showWorm3 = function(worm){
+        var temp = document.getElementById("testDiv3");
+        temp.innerHTML = worm;
+      }
+      var showWorm4 = function(worm){
+        var temp = document.getElementById("testDiv4");
+        temp.innerHTML = worm;
+      }
+      
+   </script>
+
+    <div class="div">
+      
+    </div>
+        <script src="js/jquery-3.2.1.js" type="text/javascript" charset="utf-8"></script>
+    <script type="text/javascript">
+      function insertImg(url){
+        var img = "<img src='"+url+"'/>";
+        $('.div').html(img);
+      }
+    </script>
+
+
+<script>
+var g_apppath;
+
+function CapEnumCount() {
+    var s;
+    s = App.CapEnumCount();
+    alert(s);
+    return;
+}
+
+function CapEnumName() {
+    var s;
+    s = App.CapEnumName(0);
+    alert(s);
+    return;
+}
+
+function CameraStart() {
+    var s;
+    s = App.CameraStart("OnCamera", 0);
+    alert(s);
+    return;
+}
+
+function OnCamera( itype) {
+    if (4 == itype) {
+        alert("摄像头不兼容");
+
+    }
+    return;
+}
+function CameraStop() {
+    var s;
+    s = App.CameraStop();
+    alert(s);
+    return;
+}
+
+function StartUKey() {
+    var s;
+    s = App.StartUKey("OnUKeyEvent","H", "capphoto");
+    alert(s);
+    return;
+}
+
+function OnUKeyEvent( itype, icode) {
+    var s;
+    s = itype + "|" + icode;
+    if (itype == 1) {
+        showWorm1("OnUKeyEvent:正在加载Ukey " + s);
+    } else if (itype == 2) {
+        showWorm1("OnUKeyEvent:Ukey加载完成 " + s);
+    } else if (itype == 3) {
+        showWorm1("OnUKeyEvent:Ukey错误 " + s);
+    }
+}
+
+
+function BeginVerify() {
+    var s;
+    s = App.BeginVerify("OnVerify",  3, 3000, "1.jpg", 500);
+    alert(s);
+    return;
+}
+function OnVerify( key,  iPassed,  iTick,  iCount,  capfile,  iScore) {
+    var s;
+    s = key + "|" + iPassed + "|" + iTick + "|" + iCount + "|" + capfile + "|" + iScore;
+    if (iPassed == 1) {
+        App.PlayWav("wav\\1.wav");
+        showWorm2("OnVerify:验证通过 " + s);
+        insertImg("http://appdir/capphoto/" + capfile);
+    } else if (iPassed == 2) {
+        App.PlayWav("wav\\2.wav");
+        showWorm2("OnVerify:验证失败 " + s);
+        insertImg("http://appdir/capphoto/" + capfile);
+    }
+   
+}
+
+function StartCard() {
+    var s;
+    s = App.StartCard("OnCard", g_apppath + "cardphoto");
+    alert(s);
+    return;
+}
+
+function OnCard(itype, sIdName, sIdNo, sIdExp2, sIdPhoto) {
+    var s;
+    s = itype + "|" + sIdName + "|" + sIdNo + "|" + sIdExp2 + "|" + sIdPhoto;
+
+    if (itype == 0) {
+        showWorm3("OnCard:" + "未连接");
+    } else if (itype == 1) {
+        showWorm3("OnCard:" + "已连接");
+    } else if (itype == 2) {
+        showWorm3("OnCard:读卡 " + s);
+        insertImg("http://appdir/cardphoto/" + sIdPhoto);
+        App.BeginVerify("OnVerify", 3, 3, 3000, sIdPhoto, 600, "sig\\1645010100014.sig", 200);
+    }
+    return;
+}
+
+function PlayWav() {
+    var s;
+    s = App.PlayWav(g_apppath + "wav\\1.wav");
+    alert(s);
+    return;
+}
+
+function TerminateMe() {
+    var s;
+    s = App.TerminateMe();
+    alert(s);
+    return;
+}
+function ReadIniFile() {
+    var s;
+    s = App.ReadIniFile("conf.ini", "test1", "test2");
+    alert(s);
+    return;
+}
+function WriteIniFile() {
+    var s;
+    s = App.WriteIniFile("conf.ini", "test1", "test2", "test3");
+    alert(s);
+    return;
+}
+function GetAppPath() {
+    var s;
+    g_apppath = App.GetAppPath();
+    alert(g_apppath);
+    return;
+}
+function GetUKeySN() {
+    var character = new Array("C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "X", "Y", "Z");
+  var i;
+  var s;
+    for ( i = 0; i < 23; i++) {
+        s = App.GetUKeySN(character[i]);
+        if (""!=s)
+        { 
+      s=character[i]+":"+s;
+      break;
+        };
+    }
+  alert(s)
+    return;
+}
+function DirExists() {
+    var s;
+    s = App.DirExists(g_apppath + "test\\test");
+    alert(s);
+    return;
+}
+function ForceDirs() {
+    var s;
+    s = App.ForceDirs(g_apppath + "test\\test");
+    alert(s);
+    return;
+}
+function RemoveFile() {
+    var s;
+    s = App.RemoveFile(g_apppath +"aaa.txt");
+    alert(s);
+    return;
+}
+function ReadTextFile() {
+    var s;
+    s = App.ReadTextFile(g_apppath + "aaa.txt");
+    alert(s);
+    return;
+}
+
+</script>
+
+<input type="button" value="CapEnumCount获取摄像头数量" onclick="CapEnumCount()"/>
+<input type="button" value="CapEnumName 获取摄像头名称" onclick="CapEnumName()"/>
+<input type="button" value="CameraStart打开摄像头" onclick="CameraStart()"/>
+<input type="button" value="CameraStop" onclick="CameraStop()"/>
+<br /> 
+<input type="button" value="StartUKey关闭摄像头" onclick="StartUKey()"/>
+<input type="button" value="StartCard初始化读卡器" onclick="StartCard()"/>
+
+<br /> 
+<input type="button" value="BeginVerify开始比对" onclick="BeginVerify()"/>
+
+<input type="button" value="PlayWav播放一个Wav音频" onclick="PlayWav()"/>
+<input type="button" value="TerminateMe结束当前进程" onclick="TerminateMe()"/>
+<br /> 
+<input type="button" value="ReadIniFile读取Ini文件" onclick="ReadIniFile()"/>
+<input type="button" value="WriteIniFile写入Ini文件" onclick="WriteIniFile()"/>
+<br /> 
+<input type="button" value="GetAppPath获取当前可执行文件路径" onclick="GetAppPath()"/>
+<input type="button" value="GetUKeySN获取UKeySN" onclick="GetUKeySN()"/>
+<input type="button" value="DirExists判断目录是否存在" onclick="DirExists()"/>
+<input type="button" value="ForceDirs创建多级目录" onclick="ForceDirs()"/>
+<input type="button" value="RemoveFile删除文件" onclick="RemoveFile()"/>
+<input type="button" value="ReadTextFile读取文本文件" onclick="ReadTextFile()"/>
+
+
+
+</BODY>
+</HTML>

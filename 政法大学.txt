@@ -1,0 +1,184 @@
+目录使用规则
+客户端打开的第一页是 可执行文件目录\ui\index.html
+html中可使用相对目录访问所有文件
+html中可通过GetAppPath()获得应用程序路径拼接绝对路径
+html可通过http://appdir/访问可执行文件目录下的所有文件
+
+
+1.获取摄像头数量
+int App.CapEnumCount()
+  参数：无
+  返回：int
+  说明：获取USB摄像头数量
+
+2.获取摄像头名称
+string App.CapEnumName(int index)
+  参数：index：int类型；摄像头编号0<= index<摄像头数量
+  返回：string
+  说明：获取一个摄像头的名称
+
+3.打开摄像头
+Boolean App.CameraStart(string backcall,int index)
+  参数：backcall：string类型；回掉函数的名称
+  参数：index：int类型；摄像头编号0<= index<摄像头数量
+  返回：Boolean
+  说明：打开一个摄像头到“<EMBED TYPE="application/x-window-plugin" >”标签；必须判断返回值
+  回掉函数说明
+  void backcall(int itype)
+  参数：itype：int类型；4表示摄像头不兼容
+
+4.关闭摄像头
+Boolean App.CameraStop()
+  参数：无
+  返回：Boolean
+  说明：关闭已打开的摄像头；
+
+5.初始化UKey
+Boolean App.StartUKey(string backcall,string UKeydev,string photodir)
+  参数：backcall：string类型；回掉函数的名称
+  参数：UKeydev：string类型；UKey盘符
+  参数：photodir：string类型；现场抓拍照片目录，绝对目录，最后不带“\”，目录必须存在否则返回false
+  返回：Boolean
+  说明：初始化UKey；仅调用一次；必须判断返回值
+  回掉函数说明
+  void backcall(int itype,int icode)
+  参数：itype：int类型；1正在加载UKey；2加载UKey完成；3加载UKey失败
+  参数：icode：int类型；如果itype为1这里是加载进度百分比；如果itype为2这里无意义；如果itype为3这里是错误代码
+
+6.开始比对
+int App.BeginVerify(string backcall,int cVerifyCount,int cVerifyTicks,string photofile,int cPassScore)
+  参数：backcall：string类型；回掉函数的名称
+  参数：cVerifyCount：int类型；最小比对次数，建议值1-3
+  参数：cVerifyTicks：int类型；最小比对时间（毫秒），建议1000-3000
+  参数：photofile：string类型；照片，带绝对路径
+  参数：cPassScore：int类型；对比通过阈值
+  返回：int；小于0表示失败；大于等于0表示成功；必须判断返回值
+  说明：开始比对，调用一次比对一个人
+  回掉函数说明
+  void backcall(int key,int iPassed, int iTick, int iCount, string capfile, int iScore)
+  参数：key：int类型；BeginVerify的返回值
+  参数：iPassed：int类型；1验证通过；2验证失败
+  参数：iTick：int类型；实际比对耗时（毫秒）
+  参数：iCount：int类型；实际对比次数
+  参数：capfile：string类型；抓拍的照片，不带路径
+  参数：iScore：int类型；比分
+
+7.初始化读卡器
+Boolean App.StartCard(string backcall,string photodir)
+  参数：backcall：string类型；回掉函数的名称
+  参数：photodir：string类型；身份证照片目录，绝对目录，最后不带“\”，目录必须存在否则返回false
+  返回：Boolean
+  说明：初始化读卡器；仅调用一次；必须判断返回值
+  回掉函数说明
+  void backcall(int itype,string sIdName, string sIdNo, string sIdExp2, string sIdPhoto)
+  参数：itype：int类型；0读卡器未连接；1读卡器已连接；3读卡（只有3时其他值有意义）
+  参数：sIdName：string类型；姓名
+  参数：sIdNo：string类型；身份证号
+  参数：sIdExp2：string类型；有效期
+  参数：sIdPhoto：string类型；身份证照片，不带路径
+
+11.播放一个Wav音频
+Boolean App.PlayWav(string wavfile)
+  参数：wavfile：string类型；wav音频文件，带绝对路径
+  返回：Boolean
+  说明：播放一个Wav音频
+
+12.结束当前进程
+Boolean App.TerminateMe()
+  参数：无
+  返回：Boolean
+  说明：结束当前进程
+
+13.读取Ini文件
+string App.ReadIniFile(string filename, string appname, string keyname)
+  参数：filename：string类型；Ini文件，带相对路径
+  参数：appname：string类型；节点名称
+  参数：keyname：string类型；键值名称
+  返回：string
+  说明：读取Ini配置文件
+
+14.写入Ini文件
+Boolean App.WriteIniFile(string filename, string appname, string keyname,string svalue)
+  参数：filename：string类型；Ini文件，带相对路径
+  参数：appname：string类型；节点名称
+  参数：keyname：string类型；键值名称
+  参数：svalue：string类型；写入的键值
+  返回：Boolean
+  说明：写入Ini配置文件
+
+15.获取当前可执行文件路径
+string App.GetAppPath()
+  参数：无
+  返回：string
+  说明：获取当前可执行文件路径，最后带"\"
+
+16.获取UKeySN
+string App.GetUKeySN(string Dev)
+  参数：Dev：string类型；盘符
+  返回：string
+  说明：获取UKey盘符，StartUKey之前调用
+
+17.判断目录是否存在
+Boolean App.DirExists(string sdir)
+  参数：sdir：string类型；目录；带完整路径
+  返回：Boolean
+  说明：判断目录是否存在
+
+18.创建多级目录
+Boolean App.ForceDirs(string sdir)
+  参数：sdir：string类型；目录；带完整路径
+  返回：Boolean
+  说明：创建多级目录
+
+19.删除文件
+Boolean App.RemoveFile(string sfile)
+  参数：sfile：string类型；文件名；带完整路径
+  返回：Boolean
+  说明：删除文件
+
+20.读取文本文件
+string App.ReadTextFile(string sfile)
+  参数：sfile：string类型；文件名；带完整路径
+  返回：string 文件内容
+  说明：读取文本文件
+
+21.写入文本文件
+boolean App.WriteTextFile(string sfile,string text)
+  参数：sfile：string类型；文件名；带完整路径
+  参数：text：string 文件内容
+  返回：boolean
+  说明：写入文本文件
+
+22.读取文本文件
+string App.FileToBase64(string sfile)
+  参数：sfile：string类型；文件名；带完整路径
+  返回：string 文件内容
+  说明：读取文本文件
+
+23.写入文本文件
+boolean App.Base64ToFile(string sfile,string text)
+  参数：sfile：string类型；文件名；带完整路径
+  参数：text：string 文件内容
+  返回：boolean
+  说明：写入文本文件
+
+24.打开红外摄像头
+Boolean App.CameraStart2(string backcall,int index)
+  参数：backcall：string类型；回掉函数的名称
+  参数：index：int类型；摄像头编号0<= index<摄像头数量
+  返回：Boolean
+  说明：打开一个摄像头到“<EMBED TYPE="application/x-window-plugin" >”标签；必须判断返回值
+  回掉函数说明
+  void backcall(int itype)
+  参数：itype：int类型；4表示摄像头不兼容
+
+25.关闭红外摄像头
+Boolean App.CameraStop2()
+  参数：无
+  返回：Boolean
+  说明：关闭已打开的摄像头；
+
+25.显示调试按钮
+Boolean App.showtool()
+  参数：无
+

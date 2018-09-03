@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+    <!-- <link rel="stylesheet" href="css/bootstrap.min.css"/> -->
+    <link rel="stylesheet" href="css/font.css"/>
+    <link rel="stylesheet" href="css/index.css"/>
+    <!-- <script src="js/bootstrap.min.js"></script> -->
+    <script src="js/jquery-3.2.1.js"></script>
+    <script src="js/echarts.min.js"></script>
+    <script src="js/util.js"></script>
+</head>
+<body>
+    <!--弹层 -->
+    <iframe src="select.html" id="_select" width="800" height="1280" scrolling="no" name="_select" frameborder="0"></iframe>
+    <!-- lllllllll -->
+    <div class="l-container">
+        <div class="l-header"></div>
+        <div class="l-nav">
+            <span></span>
+        </div>
+        <div class="l-content1">
+            <!-- ukeyjindu -->
+            <div class="l-process"></div>
+        <!-- content -->
+            <div class="l-msg">
+                <i class="iconfont licon1 l-chenggong">&#xe742;</i><i class="iconfont licon2 l-shibai">&#xe645;</i><i class="iconfont licon3 l-checking">&#xe783;</i><span class="l-msg-txt l-checking">等待验证</span>
+            </div>
+            <div class="l-c1-row">
+                <EMBED TYPE="application/x-window-plugin" id="pluginId" LIGN=CENTER WIDTH=670 HEIGHT=500 name ="flipper"/>
+            </div>
+            <div class="l-foot">
+                <p><span>姓名：</span><span class="l-name"></span></p>
+                <p><span>性别：</span><span class="l-sex"></span></p>
+                <p><span>身份证号：</span><span class="l-cardNumber"></span></p>
+                <p><span>二级学院：</span><span class="l-school"></span></p>
+  <!--               <p><span>UKEY启动中：</span><span class="l-ukey"></span></p> -->
+            </div>
+        <!--   <iframe src="pageIndex.html" height="990" width="800" scrolling="no"  id="contentPage"  frameborder="0"></iframe> -->
+        </div>
+        <!-- content2 -->
+        <div class="l-content2">
+            <div class="l2-cont">
+                <div>
+                    <span class="l2-lab">网络设置</span>
+                </div>
+                <div class="l2-len">
+                    <span class="l2-ip">服务端口与IP设置</span><i class="iconfont l2-ipIcon_1">&#xe7eb;</i>
+                </div>
+            </div>
+            <!--  -->
+            <div class="l2-cont">
+                    <div>
+                        <span class="l2-lab">身份证对比设置</span>
+                    </div>
+                    <div class="l2-len l2-lenbottom">
+                        <span class="l2-qy1 l2-qiyong1">启用</span>
+                        <span class="l2-ip">身份证有效期验证</span><i class="iconfont l2-ipIcon_2">&#xe7eb;</i>
+                    </div>
+                    
+                    <div class="l2-len">
+                        <span class="l2-qiyong2">身份证照片</span>
+                        <span class="l2-ip">照片对比参数</span><i class="iconfont l2-ipIcon_3">&#xe7eb;</i>
+                    </div>
+            </div>
+            <!--  -->
+<!--             <div class="l2-cont">
+                    <div>
+                        <span class="l2-lab">条码扫描设置</span>
+                    </div>
+                    <div class="l2-len">
+                        <span class="l2-qiang l2-jinyong">禁用</span>
+                        <span class="l2-ip">服务端口与IP设置</span><i class="iconfont l2-ipIcon_4">&#xe7eb;</i>
+                    </div>
+            </div> -->
+            <!--  -->
+            <div class="l2-cont">
+                    <div>
+                        <span class="l2-lab">人脸识别设置</span>
+                    </div>
+                    <div class="l2-len l2-lenbottom">
+                        <span class="l2-ip">人脸识别阈值设置</span><i class="iconfont l2-ipIcon_5">&#xe7eb;</i>
+                    </div>
+            </div>
+            <div class="l2-up l2-cont">
+                <div>
+                    <span class="l2-lab">未上传数据：</span><span class="num l2-lab">0</span>
+                </div>
+                <div>
+                    <button class="numbtn">上传</button>
+                </div>
+            </div>
+            <div class="l2-up l2-cont">
+                <div>
+                    <span class="l2-lab">红外线摄像头控制：</span>
+                </div>
+                <div>
+                    <button class="l2-btn">开启红外摄像头</button>
+                </div>
+            </div>
+        </div>
+        <!-- content2 end -->
+        <!-- content3 -->
+        <div class="l-content3">
+            <div id="main" style="width: 800px;height:990px;"></div>
+        </div>
+        <!-- content3 end -->
+        <!-- content4 -->
+        <div class="l-content4">
+            <div class="l4-quit">
+                <button class="l4-quit-btn">退出</button>
+            </div>
+            <div class="l4-quit">
+                <button class="l5-quit-btn">关机</button>
+            </div>
+        </div>
+        <!-- content4 end -->
+        <div class="l-footer">
+            <div class="l-hand">
+                <div>
+                    <i class="iconfont l-icon-hand l-this-sel">&#xf02c7;</i>
+                </div>
+                <div>
+                    <span class="l-hand-text l-this-sel">首页</span>
+                </div>
+            </div><div class="l-set">
+                <div>
+                    <i class="iconfont l-icon-set">&#xe611;</i>
+                </div>
+                <div>
+                    <span class="l-set-text">配置</span>
+                </div>
+            </div><div class="l-count">
+                <div>
+                    <i class="iconfont l-icon-count">&#xe620;</i>
+                </div>
+                <div>
+                    <span class="l-count-text">统计</span>  
+                </div>
+            </div><div class="l-status">
+                <div>
+                    <i class="iconfont l-icon-status">&#xe679;</i>
+                </div>
+                <div>
+                    <span class="l-status-text">设备状态</span>
+                </div>
+            </div>
+        </div> 
+    </div>
+    <!-- rrrrrr -->
+    <div class="r-container">
+        <div class="r-header"></div>
+        <div class="r-nav">
+            <span></span>
+        </div>
+        <!-- 验证结果 -->
+        <div class="r-content">
+            <div class="r-head">
+                <div>
+                    <i class="iconfont ricon1 r-cg">&#xe742;</i>
+                    <i class="iconfont ricon2 r-sb">&#xe645;</i>
+                    <i class="iconfont ricon3 r-checking">&#xe783;</i>
+                    <span class="r-msg r-checking">等待验证</span>
+                </div>
+            </div>
+            <div class="r-cont">
+                <div class="r-pic">
+                    <div class="r-img_1">
+                        <img src="img/images/photo.jpg"  class="r-photo1"/>
+                    </div>
+                    <div class="r-img_2">
+                        <img src="img/images/photo.jpg" class="r-photo2"/>
+                    </div>
+                </div>
+                <div class="r-mesg">
+                    <p><span>姓名：</span><span class="r-name"></span></p>
+                    <p><span>性别：</span><span class="r-sex"></span></p>
+                    <p><span>身份证号码：</span><span class="r-cardNumber"></span></p>
+                    <p><span>学院：</span><span class="r-school"></span></p>
+                    <p><span>年级：</span><span class="r-grade"></span></p>
+                    <p><span>专业：</span><span class="r-major"></span></p>
+                    <p><span>班级：</span><span class="r-class"></span></p>
+                    <p><span>学籍状态：</span><span class="r-state"></span></p>
+                    <p><span>报到时间：</span><span class="r-regTime"></span></p>
+                </div>
+            </div>
+
+            <div class="r-foot">
+                <div class="r-left">
+                    <!-- <p><span>通道：</span><span></span></p> -->
+                    <!-- <p><span>网络：</span><span></span></p> -->
+                    <p><span>证件状态：</span><span class="ideDate"></span></p>
+                </div>
+                <div class="r-rig">
+                    <!-- <p><span>核验人次：</span><span></span></p> -->
+                    <!-- <p><span>待上传数：</span><span></span></p> -->
+                    <!-- <p><span>操作人数：</span><span></span></p> -->
+                </div>
+            </div>
+        </div>
+        <div class="r-footer"></div>
+    </div>
+    <!-- msg -->
+<!--     <div style="float:left;width:200px;height: 200px;background: yellow;">
+        <p class="p1"></p>
+        <p class="p2"></p>
+        <p class="p3"></p>
+    </div> -->
+
+
+<script src="js/index.js"></script>
+</body>
+</html>
